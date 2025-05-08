@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="video_list">
+        {% set data = load_data(path=page.extra.data) %}
+        {% for bvid in data["bvids"] %}
+            {% set video_info = load_data(url="https://api.bilibili.com/x/web-interface/view?bvid=" ~ bvid, format="json") %}
+            <div class="video_card">
+                <img src="{{ video_info["data"]["pic"] }}" referrerpolicy="no-referrer" loading="lazy">
+                <h3><a href="https://www.bilibili.com/video/{{ bvid }}">{{ video_info["data"]["title"] }}</a></h3>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
